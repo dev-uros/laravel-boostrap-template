@@ -3,6 +3,13 @@
 @section('content')
     @include('partials.nav', ['title' => 'Users'])
 
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            User successfully created!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="table-responsive">
         <table class="table table-striped table-hover caption-top">
             <caption>
@@ -21,40 +28,27 @@
             </tr>
             </thead>
             <tbody class="table-group-divider">
+            @forelse($users as $user)
             <tr>
                 <th scope="row">1</th>
-                <td>Uroš</td>
-                <td>Minić</td>
-                <td>minic.uros.94@gmail.com</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->surname}}</td>
+                <td>{{$user->email}}</td>
                 <td class="text-center">
-                    <button class="btn">
+                    <a class="btn" href="{{ route('users.show',$user->id) }}">
                         <i class="bi bi-three-dots-vertical"></i>
-                    </button>
+                    </a>
                 </td>
 
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Marijana</td>
-                <td>Minić</td>
-                <td>minic.marijana.95@gmail.com</td>
-                <td class="text-center">
-                    <button class="btn">
-                        <i class="bi bi-three-dots-vertical"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Joca</td>
-                <td>Gomboca</td>
-                <td>jocika@gmail.com</td>
-                <td class="text-center">
-                    <button class="btn">
-                        <i class="bi bi-three-dots-vertical"></i>
-                    </button>
-                </td>
-            </tr>
+
+            @empty
+                <tr>
+                    <td class="text-center" colspan="5">No Users Found</td>
+                </tr>
+            @endforelse
+
+
 
             </tbody>
         </table>
