@@ -40,13 +40,13 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $this->storeUserService->handle($request->validated());
-        return redirect()->route('users.index')->with('success', 'Uspešno kreiran korisnik');
+        return redirect()->route('users.index')->with('message', 'Uspešno kreiran korisnik');
     }
 
     public function update(User $user, UpdateUserRequest $request)
     {
         $this->updateUserService->handle($user, $request->validated());
-        return redirect()->route('users.index')->with('success', 'Uspešno ažuriran korisnik');
+        return redirect()->route('users.index')->with('message', 'Uspešno ažuriran korisnik');
 
     }
 }
